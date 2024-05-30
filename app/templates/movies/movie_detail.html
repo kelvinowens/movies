@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ movie.title }}{% endblock title %}
+
+{% block content %}
+    <br>
+    <div class="title w-50 text-center">
+        <h1>{{ movie.title }}</h1>
+        <hr>
+    </div>
+    <br>
+
+    <div class="movie-content d-flex flex-row">
+        <div class="poster d-inline-flex w-25 justify-content-center">
+            <img style="width: 26rem; height: 39rem" src=" {{ movie.poster_url }}">
+        </div>
+        
+        <div class="movie-info w-25">
+
+            <p><u>Plot:</u> 
+                <table class="table table-secondary">
+                    <td>{{ movie.plot_summary }}</td>
+                </table>
+            </p>
+            
+            <p><u>Rating:</u>
+                <table class="table table-secondary">
+                    <td>{{ movie.rating }}</td>
+                </table>
+            </p>
+
+
+            <p><u>Release Date:</u>
+                <table class="table table-secondary">
+                    <td>{{ movie.release_date }}</td>
+                </table>
+            </p>
+
+
+            <p><u>Duration:</u> 
+                <table class="table table-secondary">
+                    <td>{{ movie.duration }}</td>
+                </table>
+            </p>
+
+            
+            <p><u>Actors</u> <br>
+                
+                <table class="table table-secondary table-striped">
+                    <tr>
+                        <th scope="col">Actor</th>
+                        <th scope="col">Character</th>
+                    </tr>
+                    {% for movie_actor in movie_actors %}
+                        <tr>
+                            <td>{{ movie_actor.actor.first_name }} {{ movie_actor.actor.last_name }}</td>
+    
+                            <td>{{ movie_actor.role }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </p>
+        </div>
+    </div>
+    <br>
+    <hr class="w-50">
+
+    
+    <div class="manage d-flex w-50 gap-3 justify-content-center">
+        {% if user.is_authenticated %}
+            <a class="btn btn-outline-light" href="{% url 'update_movie' movie.pk %}">Edit</a>
+            <a class="btn btn-outline-light" href="{% url 'delete_movie' movie.pk %}">Delete</a>
+        {% endif %}
+        <a class="btn btn-outline-light" href="{% url 'movie_list' %}">Back to List</a>
+    </div>
+    
+{% endblock content %}
+

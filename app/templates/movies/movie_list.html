@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Movie List{% endblock title %}Movie List
+
+{% block content %}
+<br>
+    <h1 class="text-center">Movies</h1>
+    <br>
+    <div>
+        <ul class="list-unstyled d-flex flex-wrap justify-content-evenly gap-5">
+            {% for movie in movies %}
+                <li>
+                <div class="manage">
+                    <div class="card border-secondary mb-3">
+                        <a href="{% url 'movie_detail' movie.pk %}"><img style="width: 18rem; height: 27rem" src=" {{ movie.poster_url }}"></a>
+                        
+                        <a class="card-title text-decoration-none text-center" href="{% url 'movie_detail' movie.pk %}">{{ movie.title }}</a>
+                        <div class="d-inline-flex">
+                            {% if user.is_authenticated %}
+                                <a class="btn btn-outline-light w-50 text-decoration-none" href="{% url 'update_movie' movie.pk %}">Edit</a>
+                                <a class="btn btn-outline-light w-50 text-decoration-none"href="{% url 'delete_movie' movie.pk %}">Delete</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                </li>
+            {% endfor %}
+            </ul>
+    </div>
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            {% for letter in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' %}
+                <li class="page-item">
+                    <a class="page-link" href="{% url 'movie_list_by_letter' letter %}">{{ letter }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
+    
+</div>
+
+<!-- Include Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{% endblock content %}
