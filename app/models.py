@@ -37,6 +37,7 @@ class Movie(models.Model):
     genres = models.ManyToManyField(Genre, related_name='movies', blank=True)
     directors = models.ManyToManyField(Director, related_name='movies', blank=True)
     actors = models.ManyToManyField(Actor, through='MovieActor', blank=True)
+    owned = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
