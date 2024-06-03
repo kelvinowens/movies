@@ -25,11 +25,53 @@
                     <a class="nav-link" href="{% url 'create_movie' %}">New Movie</a>
                 </li>
               {% endif %}
+
+              <!-- <ul class="navbar-nav me-auto navbar-right">
+                <li class="nav-item">
+                  <a class="nav-link active" href="{% url 'login' %}">Login</a>
+                </li>
+              </ul>
+
+              <ul class="navbar-nav me-auto navbar-right">
+                <li class="nav-item">
+                  <a class="nav-link active" href="{% url 'logout' %}">Logout</a>
+                </li>
+              </ul> -->
+
+              <ul class="navbar-nav ml-auto navbar-right">
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <form method="post" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-link nav-link" style="cursor: pointer;">Logout</button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Login</a>
+                    </li>
+                {% endif %}
+            </ul>
               
           </div>
         </div>
       </nav>
 
     {% block content %}{% endblock content %}
+<br>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            {% for letter in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' %}
+                <li class="page-item">
+                    <a class="page-link" href="{% url 'movie_list_by_letter' letter %}">{{ letter }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
+
+<!-- Include Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

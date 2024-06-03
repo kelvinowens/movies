@@ -4,34 +4,18 @@
 
 {% block content %}
     <br>
-    <div class="title w-100 text-center">
+    <div class="title w-50 text-center">
         <h1>{{ movie.title }}</h1>
         <hr>
     </div>
     <br>
 
     <div class="movie-content d-flex flex-row">
-        <div class="poster d-inline-flex flex-column w-50 justify-content-start align-items-center">
-            <img style="width: 26rem; height: 39rem;" src=" {{ movie.poster_url }}">
-            <br>
-            <hr>
-            <div class="manage d-flex w-50 gap-3 justify-content-center">
-                {% if user.is_authenticated %}
-                    <a class="btn btn-outline-light" href="{% url 'update_movie' movie.pk %}">Edit</a>
-                    <a class="btn btn-outline-light" href="{% url 'delete_movie' movie.pk %}">Delete</a>
-                {% endif %}
-                <a class="btn btn-outline-light" href="{% url 'movie_list' %}">Back to List</a>
-            </div>
+        <div class="poster d-inline-flex w-25 justify-content-center">
+            <img style="width: 26rem; height: 39rem" src=" {{ movie.poster_url }}">
         </div>
         
         <div class="movie-info w-25">
-
-            <p>
-                Owned Movie:
-                <table class="table table-secondary">
-                    <td>{{ movie.owned }}</td>
-                </table>
-            </p>
 
             <p><u>Plot:</u> 
                 <table class="table table-secondary">
@@ -77,6 +61,17 @@
                 </table>
             </p>
         </div>
+    </div>
+    <br>
+    <hr class="w-50">
+
+    
+    <div class="manage d-flex w-50 gap-3 justify-content-center">
+        {% if user.is_authenticated %}
+            <a class="btn btn-outline-light" href="{% url 'update_movie' movie.pk %}">Edit</a>
+            <a class="btn btn-outline-light" href="{% url 'delete_movie' movie.pk %}">Delete</a>
+        {% endif %}
+        <a class="btn btn-outline-light" href="{% url 'movie_list' %}">Back to List</a>
     </div>
     
 {% endblock content %}

@@ -52,10 +52,13 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'config.urls'
 
+LOGIN_REDIRTECT_URL = '/movies/'
+LOGOUT_REDIRTECT_URL = '/movies/'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
